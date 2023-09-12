@@ -6,15 +6,10 @@ namespace Architecture_Base.Core
 {
     public abstract class Runner : IRunnable
     {
-        private bool _canEnableAllControllers;
-        private bool _isStarted = false;
-        private readonly List<IController> _controllersWasEnabled = new();
+        protected bool _canEnableAllControllers = true;
         protected IController[] _controllers;
-
-        protected Runner(bool enableAllControllers)
-        {
-            _canEnableAllControllers = enableAllControllers;
-        }
+        private readonly List<IController> _controllersToEnabled = new();
+        private bool _isStarted = false;
 
         public async void RunAsync()
         {
@@ -39,8 +34,8 @@ namespace Architecture_Base.Core
 
         public void Enable()
         {
-            _controllersWasEnabled.ForEach(controller => controller.Enable());
-            _controllersWasEnabled?.Clear();
+            _controllersToEnabled.ForEach(controller => controller.Enable());
+            _controllersToEnabled?.Clear();
         }
 
         protected abstract void OnControllersInitializedAndEnabled();
@@ -87,11 +82,11 @@ namespace Architecture_Base.Core
 
         public void Disable()
         {
-            _controllersWasEnabled
+            _controllersToEnabled
                 .AddRange(_controllers
                 .Where(controller => controller.Enabled));
 
-            _controllersWasEnabled.ForEach(controller => controller?.Disable());
+            _controllersToEnabled.ForEach(controller => controller?.Disable());
         }
     }
 }
