@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,13 +38,12 @@ namespace Architecture_Base.Core
         {
             if (_controllersToEnable != null)
             {
-                _controllersToEnable.ForEach(controller => controller.Enable());
-                _controllersToEnable.Clear();
+                Array.ForEach(_controllersToEnable, controller => controller?.Enable());
                 _controllersToEnable = null;
                 return;
             }
 
-            _controllersWasEnabled.ForEach(controller => controller.Enable());
+            _controllersWasEnabled?.ForEach(controller => controller?.Enable());
             _controllersWasEnabled?.Clear();
         }
 
