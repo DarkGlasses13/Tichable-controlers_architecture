@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Architecture_Base.Asset_Loading
 {
-    public interface IInstanceLoader : ICloneable
+    public interface IInstanceLoader
     {
         bool HasInstance { get; }
 
