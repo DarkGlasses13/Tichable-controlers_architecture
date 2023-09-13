@@ -10,7 +10,7 @@ namespace Architecture_Base.Asset_Loading
         public object Asset { get; protected set; }
 
         public abstract T Load();
-        public abstract T LoadAll();
+        public abstract IList<T> LoadAll();
         public abstract Task<IList<T>> LoadAllAsync();
         public abstract T LoadAndInstantiate(Transform parent, bool isActive = true);
         public abstract Task<IList<T>> LoadAndInstantiateAllAsync(Transform parent, bool isActive = true);

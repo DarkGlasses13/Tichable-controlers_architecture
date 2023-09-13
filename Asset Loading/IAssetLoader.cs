@@ -9,7 +9,7 @@ namespace Architecture_Base.Asset_Loading
         object Key { get; }
         object Asset { get; }
         T Load();
-        T LoadAll();
+        IList<T> LoadAll();
         T LoadAndInstantiate(Transform parent, bool isActive = true);
         Task<T> LoadAsync();
         Task<IList<T>> LoadAllAsync();
