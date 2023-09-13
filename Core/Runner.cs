@@ -8,7 +8,8 @@ namespace Architecture_Base.Core
     {
         protected bool _canEnableAllControllers = true;
         protected IController[] _controllers;
-        private readonly List<IController> _controllersToEnabled = new();
+        protected IController[] _controllersToEnable;
+        private readonly List<IController> _controllersWasEnabled = new();
         private bool _isStarted = false;
 
         public async void RunAsync()
@@ -34,8 +35,16 @@ namespace Architecture_Base.Core
 
         public void Enable()
         {
-            _controllersToEnabled.ForEach(controller => controller.Enable());
-            _controllersToEnabled?.Clear();
+            if (_controllersToEnable != null)
+            {
+                _controllersToEnable.ForEach(controller => controller.Enable());
+                _controllersToEnable.Clear();
+                _controllersToEnable = null;
+                return;
+            }
+
+            _controllersWasEnabled.ForEach(controller => controller.Enable());
+            _controllersWasEnabled?.Clear();
         }
 
         protected abstract void OnControllersInitializedAndEnabled();
@@ -82,11 +91,11 @@ namespace Architecture_Base.Core
 
         public void Disable()
         {
-            _controllersToEnabled
+            _controllersWasEnabled
                 .AddRange(_controllers
                 .Where(controller => controller.Enabled));
 
-            _controllersToEnabled.ForEach(controller => controller?.Disable());
+            _controllersWasEnabled.ForEach(controller => controller?.Disable());
         }
     }
 }
