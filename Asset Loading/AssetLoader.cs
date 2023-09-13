@@ -7,7 +7,7 @@ namespace Architecture_Base.Asset_Loading
     public abstract class AssetLoader<T> : IAssetLoader<T>
     {
         public abstract object Key { get; }
-        public object Asset { get; private set; }
+        public object Asset { get; protected set; }
 
         public abstract T Load();
         public abstract T LoadAll();
