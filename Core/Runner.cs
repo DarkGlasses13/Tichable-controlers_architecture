@@ -7,11 +7,10 @@ namespace Architecture_Base.Core
 {
     public abstract class Runner : IRunnable
     {
-        protected bool _canEnableAllControllers = true;
         protected IController[] _controllers;
         protected IController[] _controllersToEnable;
         private readonly List<IController> _controllersWasEnabled = new();
-        private bool _isStarted = false;
+        private bool _isEnabled = false;
 
         public async void RunAsync()
         {
@@ -21,15 +20,10 @@ namespace Architecture_Base.Core
             {
                 await controller?.InitializeAsync();
                 controller?.Initialize();
-
-                if (_canEnableAllControllers)
-                {
-                    controller?.Enable();
-                }
             }
 
-            _isStarted = true;
-            OnControllersInitializedAndEnabled();
+            OnControllersInitialized();
+            Enable();
         }
 
         protected abstract Task CreateControllers();
@@ -40,18 +34,20 @@ namespace Architecture_Base.Core
             {
                 Array.ForEach(_controllersToEnable, controller => controller?.Enable());
                 _controllersToEnable = null;
+                _isEnabled = true;
                 return;
             }
 
             _controllersWasEnabled?.ForEach(controller => controller?.Enable());
             _controllersWasEnabled?.Clear();
+            _isEnabled = true;
         }
 
-        protected abstract void OnControllersInitializedAndEnabled();
+        protected abstract void OnControllersInitialized();
 
         public void Tick()
         {
-            if (_isStarted)
+            if (_isEnabled)
                 foreach (IController controller in _controllers)
                 {
                     if (controller.Enabled)
@@ -61,7 +57,7 @@ namespace Architecture_Base.Core
 
         public void LateTick()
         {
-            if (_isStarted)
+            if (_isEnabled)
                 foreach (IController controller in _controllers)
                 {
                     if (controller.Enabled)
@@ -71,7 +67,7 @@ namespace Architecture_Base.Core
 
         public void FixedTick()
         {
-            if (_isStarted)
+            if (_isEnabled)
                 foreach (IController controller in _controllers)
                 {
                     if (controller.Enabled)
@@ -81,7 +77,7 @@ namespace Architecture_Base.Core
 
         public void Restart()
         {
-            if (_isStarted)
+            if (_isEnabled)
                 foreach (IController controller in _controllers)
                 {
                     if (controller.Enabled)
@@ -91,6 +87,8 @@ namespace Architecture_Base.Core
 
         public void Disable()
         {
+            _isEnabled = false;
+
             _controllersWasEnabled
                 .AddRange(_controllers
                 .Where(controller => controller.Enabled));
