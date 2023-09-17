@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace Architecture_Base.Asset_Loading
 {
-    public interface IAssetLoader<T>
+    public interface IAssetLoader<T> where T : class
     {
         object Key { get; }
-        object Asset { get; }
+        T Asset { get; }
         T Load();
         IList<T> LoadAll();
         T LoadAndInstantiate(Transform parent, bool isActive = true);

@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace Architecture_Base.Asset_Loading
 {
-    public abstract class AssetLoader<T> : IAssetLoader<T>
+    public abstract class AssetLoader<T> : IAssetLoader<T> where T : class
     {
         public abstract object Key { get; }
-        public object Asset { get; protected set; }
+        public T Asset { get; protected set; }
 
         public abstract T Load();
         public abstract IList<T> LoadAll();
