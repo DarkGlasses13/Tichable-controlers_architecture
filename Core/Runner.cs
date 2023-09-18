@@ -7,6 +7,7 @@ namespace Architecture_Base.Core
 {
     public abstract class Runner : IRunnable
     {
+        protected bool _canEnableControllers = true;
         protected IController[] _controllers;
         protected IController[] _controllersToEnable;
         private readonly List<IController> _controllersWasEnabled = new();
@@ -24,26 +25,31 @@ namespace Architecture_Base.Core
 
             OnControllersInitialized();
             Enable();
+            OnControllersEnabled();
         }
 
         protected abstract Task CreateControllers();
+        protected abstract void OnControllersInitialized();
 
         public void Enable()
         {
+            _isEnabled = true;
+
+            if (_canEnableControllers == false)
+                return;
+
             if (_controllersToEnable != null)
             {
                 Array.ForEach(_controllersToEnable, controller => controller?.Enable());
                 _controllersToEnable = null;
-                _isEnabled = true;
                 return;
             }
 
             _controllersWasEnabled?.ForEach(controller => controller?.Enable());
             _controllersWasEnabled?.Clear();
-            _isEnabled = true;
         }
 
-        protected abstract void OnControllersInitialized();
+        protected abstract void OnControllersEnabled();
 
         public void Tick()
         {
