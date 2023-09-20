@@ -1,0 +1,17 @@
+{
+    "name": "Actors",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2d4cfde8d8f67c947aeeee7e382d5007",
+        "GUID:58eafd82b24041845be60d0503418e65"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
