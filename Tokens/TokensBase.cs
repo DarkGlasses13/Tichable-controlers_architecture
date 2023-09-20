@@ -6,7 +6,7 @@ namespace Assets.Package.Tokens
 {
     public abstract class TokensBase<T> where T : IToken
     {
-        protected readonly List<T> _datas;
+        protected List<T> _datas;
 
         public virtual async Task LoadDataAsync() => await Task.CompletedTask;
         public virtual void LoadData() { }
