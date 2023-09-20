@@ -5,7 +5,7 @@ namespace Assets.Package.Tokens.Actors
 {
     public abstract class ActorsBase<TData, TActor> : TokensBase<TData> where TData : ActorData where TActor : Actor
     {
-        private readonly List<TActor> _actors = new();
+        protected readonly List<TActor> _actors = new();
 
         public TActor GetByID(string id, bool isUsed = false, bool willWse = true)
         {
