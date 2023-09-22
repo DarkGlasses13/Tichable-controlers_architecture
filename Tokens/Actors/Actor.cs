@@ -4,20 +4,17 @@ using UnityEngine;
 
 namespace Assets.Package.Tokens.Actors
 {
-    public abstract class Actor : IActor
+    public abstract class Actor : Token, IInstanceLoader
     {
         private readonly IInstanceLoader _instanceLoader;
         private GameObject _instance;
 
-        public ActorData Data { get; }
-        public bool IsInUse { get; set; }
-        public bool HasInstance => _instance != null;
-
-        public Actor(IInstanceLoader instanceLoader, ActorData data)
+        protected Actor(TokenData data, IInstanceLoader instanceLoader) : base(data)
         {
             _instanceLoader = instanceLoader;
-            Data = data;
         }
+
+        public bool HasInstance => _instance != null;
 
         public GameObject GetInstance(string id, Action<GameObject> onLoaded = null)
         {
@@ -40,9 +37,9 @@ namespace Assets.Package.Tokens.Actors
                 .Construct(Data.ID);
         }
 
-        public void UnloadInstance(Action<GameObject> onBeforeUnload = null)
+        public void UnloadInstance()
         {
-            _instanceLoader.UnloadInstance(onBeforeUnload);
+            _instanceLoader.UnloadInstance();
             OnInstanceUnloaded();
         }
 

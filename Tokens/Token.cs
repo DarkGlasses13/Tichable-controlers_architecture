@@ -1,10 +1,13 @@
-﻿using UnityEngine;
-
-namespace Assets.Package.Tokens
+﻿namespace Assets.Package.Tokens
 {
-    public abstract class Token : ScriptableObject, IToken
+    public abstract class Token
     {
-        [field: SerializeField] public string ID { get; private set; }
-        [field: SerializeField] public string Name { get; private set; }
+        public TokenData Data { get; }
+        public bool IsInUse { get; set; }
+
+        public Token(TokenData data)
+        {
+            Data = data;
+        }
     }
 }
