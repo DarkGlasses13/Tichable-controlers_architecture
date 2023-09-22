@@ -17,7 +17,7 @@ namespace Assets.Package.Tokens
             return _datas.SingleOrDefault(data => data.ID == id);
         }
 
-        public TToken GetUnusedByID(string id, bool isUsed = false, bool willWse = true)
+        public TToken GetByID(string id, bool isUsed = false, bool willWse = true)
         {
             TToken token = _pool
                 .Where(token => token.IsInUse == isUsed)

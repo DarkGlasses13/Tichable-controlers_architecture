@@ -6,7 +6,7 @@ namespace Assets.Package.Tokens
     {
         void LoadData();
         Task LoadDataAsync();
-        TToken GetUnusedByID(string id, bool isUsed = false, bool willWse = true);
+        TToken GetByID(string id, bool isUsed = false, bool willWse = true);
         TToken GetNewByID(string id, bool willWse = true);
     }
 }
