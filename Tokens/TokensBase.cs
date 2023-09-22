@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Package.Tokens
 {
-    public abstract class TokensBase<TData, TToken> : ITokenBase<TData, TToken> where TData : TokenData where TToken : Token, new()
+    public abstract class TokensBase<TData, TToken> : ITokenBase<TData, TToken> where TData : TokenData where TToken : Token
     {
         protected List<TData> _datas;
         private  readonly List<TToken> _pool;
