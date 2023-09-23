@@ -9,9 +9,20 @@ namespace Architecture_Base.Hierarchy_Building
 
         public Transform GetParent(string name, Transform root = null)
         {
-            Transform parent = _parents.ContainsKey(name)
-                ? _parents[name]
-                : new GameObject(name).transform;
+            Transform parent;
+
+            if (_parents.ContainsKey(name))
+            {
+                parent = _parents[name];
+            }
+            else
+            {
+                GameObject findedParent = GameObject.Find(name);
+
+                parent = findedParent != null
+                    ? findedParent.transform
+                    : new GameObject(name).transform;
+            }
 
             parent.SetParent(root);
             return parent;
