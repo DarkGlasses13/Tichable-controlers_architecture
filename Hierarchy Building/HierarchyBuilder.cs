@@ -23,11 +23,19 @@ namespace Architecture_Base.Hierarchy_Building
                     ? findedParent.transform
                     : new GameObject(name).transform;
 
+                parent.SetParent(root);
                 _parents.Add(name, parent);
             }
 
-            parent.SetParent(root);
             return parent;
+        }
+
+        public void SetRoot(string name, Transform root = null)
+        {
+            if (_parents.ContainsKey(name))
+            {
+                _parents[name].SetParent(root);
+            }
         }
     }
 }
