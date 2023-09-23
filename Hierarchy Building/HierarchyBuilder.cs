@@ -22,6 +22,8 @@ namespace Architecture_Base.Hierarchy_Building
                 parent = findedParent != null
                     ? findedParent.transform
                     : new GameObject(name).transform;
+
+                _parents.Add(name, parent);
             }
 
             parent.SetParent(root);
