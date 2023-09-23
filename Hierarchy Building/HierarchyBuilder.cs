@@ -19,12 +19,16 @@ namespace Architecture_Base.Hierarchy_Building
             {
                 GameObject findedParent = GameObject.Find(name);
 
-                parent = findedParent != null
-                    ? findedParent.transform
-                    : new GameObject(name).transform;
-
-                parent.SetParent(root);
-                _parents.Add(name, parent);
+                if (findedParent == null)
+                {
+                    parent = new GameObject(name).transform;
+                    parent.SetParent(root);
+                    _parents.Add(name, parent);
+                }
+                else
+                {
+                    parent = findedParent.transform;
+                }
             }
 
             return parent;
