@@ -4,10 +4,11 @@ using UnityEngine;
 
 namespace Architecture_Base.Asset_Loading
 {
-    public abstract class AssetLoader<T> : IAssetLoader<T>
+    public abstract class SingleAssetLoader<T> : ISingleAssetLoader<T>
     {
+        protected object _asset;
+
         public abstract object Key { get; }
-        public object Asset { get; protected set; }
 
         public abstract T Load();
         public abstract IList<T> LoadAll();
@@ -19,15 +20,15 @@ namespace Architecture_Base.Asset_Loading
 
         public void Unload()
         {
-            if (Asset != null)
+            if (_asset != null)
             {
-                if (Asset is GameObject gameObjectAsset)
+                if (_asset is GameObject gameObjectAsset)
                 {
                     gameObjectAsset.SetActive(false);
                 }
 
                 ReleaseAsset();
-                Asset = null;
+                _asset = null;
             }
         }
 
