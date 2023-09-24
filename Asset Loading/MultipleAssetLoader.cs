@@ -12,8 +12,8 @@ namespace Architecture_Base.Asset_Loading
 
         public abstract IList<T> Load();
         public abstract IList<T> LoadAndInstantiate(Transform parent, bool isActive = true);
-        public abstract Task<IList<T>> LoadAndInstantiateAsync(Transform parent, bool isActive = true);
         public abstract Task<IList<T>> LoadAsync();
+        public abstract Task<IList<T>> LoadAndInstantiateAsync(Transform parent, bool isActive = true);
 
         public void Unload()
         {
