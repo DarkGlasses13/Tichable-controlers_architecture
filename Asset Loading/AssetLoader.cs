@@ -1,15 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace Architecture_Base.Asset_Loading
 {
-    public abstract class AssetLoader<T> : ISingleAssetLoader<T>
+    public abstract class AssetLoader<T> : IAssetLoader<T>
     {
-        protected object _asset;
-
         public abstract object Key { get; }
+        public object Asset { get; protected set; }
 
         public abstract T Load();
         public abstract IList<T> LoadAll();
@@ -21,15 +19,15 @@ namespace Architecture_Base.Asset_Loading
 
         public void Unload()
         {
-            if (_asset != null)
+            if (Asset != null)
             {
-                if (_asset is GameObject gameObjectAsset)
+                if (Asset is GameObject gameObjectAsset)
                 {
                     gameObjectAsset.SetActive(false);
                 }
 
                 ReleaseAsset();
-                _asset = null;
+                Asset = null;
             }
         }
 
