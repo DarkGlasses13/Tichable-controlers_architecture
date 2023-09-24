@@ -9,8 +9,8 @@ namespace Assets.Package.Tokens
         protected List<TData> _datas;
         private  readonly List<TToken> _pool = new();
 
-        public virtual async Task InitializeAsync() => await Task.CompletedTask;
-        public virtual void Initialize() { }
+        public virtual async Task LoadDataAsync() => await Task.CompletedTask;
+        public virtual void LoadData() { }
 
         public TData GetDataByID(string id)
         {
