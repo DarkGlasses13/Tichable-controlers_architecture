@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace Architecture_Base.Asset_Loading
 {
-    public abstract class AssetLoader<T> : ISingleAssetLoader<T>
+    public abstract class SingleAssetLoader<T> : ISingleAssetLoader<T>
     {
         protected object _asset;
 

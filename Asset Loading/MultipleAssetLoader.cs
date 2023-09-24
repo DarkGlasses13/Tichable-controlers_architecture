@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Architecture_Base.Asset_Loading
 {
-    public abstract class MoltipleAssetLoader<T> : IMultipleAssetLoader<T>
+    public abstract class MultipleAssetLoader<T> : IMultipleAssetLoader<T>
     {
         protected IList<object> _assets;
 
