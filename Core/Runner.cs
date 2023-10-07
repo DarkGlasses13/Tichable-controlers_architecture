@@ -7,6 +7,7 @@ namespace Architecture_Base.Core
 {
     public abstract class Runner : IRunnable
     {
+        private bool _isFirstRun = true;
         protected bool _canEnableControllers = true;
         protected IController[] _controllers;
         protected IController[] _controllersToEnable;
@@ -33,16 +34,31 @@ namespace Architecture_Base.Core
 
         public void Enable()
         {
+            if (_isEnabled)
+                return;
+
             _isEnabled = true;
 
-            if (_canEnableControllers == false)
-                return;
-
-            if (_controllersToEnable != null)
+            if (_isFirstRun)
             {
-                Array.ForEach(_controllersToEnable, controller => controller?.Enable());
-                _controllersToEnable = null;
-                return;
+                _isFirstRun = false;
+
+                if (_canEnableControllers == false)
+                    return;
+
+                IController[] controllers;
+
+                if (_controllersToEnable != null)
+                {
+                    controllers = _controllersToEnable.ToArray();
+                    _controllersToEnable = null;
+                }
+                else
+                {
+                    controllers = _controllers;
+                }
+
+                Array.ForEach(controllers, controller =>  controller?.Enable());
             }
 
             _controllersWasEnabled?.ForEach(controller => controller?.Enable());
@@ -93,6 +109,9 @@ namespace Architecture_Base.Core
 
         public void Disable()
         {
+            if (_isEnabled == false)
+                return;
+
             _isEnabled = false;
 
             _controllersWasEnabled
