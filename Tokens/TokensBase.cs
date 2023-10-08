@@ -31,6 +31,10 @@ namespace Assets.Package.Tokens
         public TToken GetNewByID(string id, bool willWse = true)
         {
             TToken token = CreateByID(id);
+
+            if (token == null) 
+                return null;
+
             _pool.Add(token);
             token.IsInUse = willWse;
             return token;
